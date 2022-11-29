@@ -1,0 +1,10 @@
+body {
+  background-color: #f7f7f7;
+}
+
+.app {
+  &__main {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}

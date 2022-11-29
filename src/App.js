@@ -1,14 +1,15 @@
 import React from 'react';
-import './style.css';
-
+import './style.scss';
+import NavBar from './components/NavBar/NavBar';
 import ProductPage from './pages/ProductPage/ProductPage';
 
 export default function App() {
   return (
-    <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
-      <ProductPage />
+    <div className="app">
+      <NavBar className="app__nav" />
+      <main className="app__main">
+        <ProductPage />
+      </main>
     </div>
   );
 }

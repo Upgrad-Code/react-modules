@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { PRODUCTS_API_URL } from '../../helpers/config';
 import { getJson } from '../../helpers/helperFns';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+
+import { ProductsContext } from '../../contexts/ProductsContext';
+console.log(ProductsContext);
 import './ProductPage.scss';
 
 const ProductPage = () => {
-  const [state, setState] = useState({
-    isLoading: false,
-    products: [],
-    isError: null,
-  });
+  // const [state, setState] = useState({
+  //   isLoading: false,
+  //   products: [],
+  //   isError: null,
+  // });
+
+  const { state, setState } = useContext(ProductsContext);
+  const { isLoading, products, cartProducts, isError } = state;
+
+  console.log(state);
 
   useEffect(() => {
     setState((prev) => {
@@ -32,8 +40,22 @@ const ProductPage = () => {
     })();
   }, []);
 
-  const { isLoading, products, isError } = state;
-  console.log(products);
+  const handleAddToCart = (id) => {
+    const product = products.filter((p) => p.id === id);
+    setState((prev) => {
+      return { ...prev, cartProducts: prev.cartProducts.concat(product) };
+    });
+  };
+
+  const handleRemoveFromCart = (id) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        cartProducts: prev.cartProducts.filter((cp) => cp.id !== id),
+      };
+    });
+  };
+
   return (
     <section className="product__page">
       <Container>
@@ -50,14 +72,25 @@ const ProductPage = () => {
                         <strong>$</strong>
                         {p.price}
                       </Card.Text>
-                      <Button variant="dark">
-                        <i className="icofont icofont-shopping-cart"></i>
-                      </Button>
+
+                      {cartProducts.find((cp) => cp.id === p.id) ? (
+                        <Button
+                          variant="danger"
+                          onClick={() => handleRemoveFromCart(p.id)}
+                        >
+                          <i className="icofont icofont-ui-delete"></i>
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="dark"
+                          onClick={() => handleAddToCart(p.id)}
+                        >
+                          <i className="icofont icofont-shopping-cart"></i>
+                        </Button>
+                      )}
+
                       <Button variant="warning">
                         <i className="icofont icofont-heart-alt"></i>
-                      </Button>
-                      <Button variant="danger">
-                        <i className="icofont icofont-ui-delete"></i>
                       </Button>
                     </Card.Body>
                   </Card>
