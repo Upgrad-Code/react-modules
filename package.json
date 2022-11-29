@@ -6,9 +6,11 @@
     "@popperjs/core": "^2.11.6",
     "@types/react": ">=16.14.8",
     "bootstrap": "^5.2.3",
+    "node": "^19.1.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.6.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "sass": "^1.56.1"
   },
   "scripts": {
     "start": "react-scripts start",
