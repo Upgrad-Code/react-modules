@@ -4,7 +4,6 @@ import { getJson } from '../../helpers/helperFns';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 import { ProductsContext } from '../../contexts/ProductsContext';
-console.log(ProductsContext);
 import './ProductPage.scss';
 
 const ProductPage = () => {
